@@ -52,8 +52,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         color: backgroundYellow,
@@ -164,11 +162,11 @@ class _HomePageState extends State<HomePage> {
               label: 'Science',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.group_outlined),
+              icon: Icon(Icons.supervisor_account_outlined),
               label: 'Business',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.article_outlined),
+              icon: Icon(Icons.list_alt),
               label: 'Technology',
             ),
           ],
