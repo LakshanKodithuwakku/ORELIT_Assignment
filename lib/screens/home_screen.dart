@@ -17,7 +17,8 @@ class _HomePageState extends State<HomePage> {
   bool _isLoading = true;
   String newsType = "science";
 
-  void _onItemTapped(int index) {
+  void _onItemTapped(int index) async {
+    _isLoading = true;
     switch (index) {
       case 0:
         newsType = "science";
@@ -29,10 +30,11 @@ class _HomePageState extends State<HomePage> {
         newsType = "business";
         break;
     }
-    getNews(newsType);
     setState(() {
       _selectedIndex = index;
     });
+    await getNews(newsType);
+    _isLoading = false;
   }
 
   @override
@@ -69,96 +71,111 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 20),
-              Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30.0),
-                      topLeft: Radius.circular(30.0),
+              Expanded(
+                child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30.0),
+                        topLeft: Radius.circular(30.0),
+                      ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 35),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 15,
-                            right: 15,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                newsType[0].toUpperCase() +
-                                    newsType.substring(1).toLowerCase(),
-                                style: TextStyle(
-                                  color: textBlack,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 35),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              left: 15,
+                              right: 15,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  newsType[0].toUpperCase() +
+                                      newsType.substring(1).toLowerCase(),
+                                  style: TextStyle(
+                                    color: textBlack,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Here is your " + newsType + " news",
-                                style: TextStyle(
-                                    color: textGray,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                              SizedBox(
-                                height: 25,
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  "Here is your " + newsType + " news",
+                                  style: TextStyle(
+                                      color: textGray,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        _isLoading
-                            ? Container(
-                                height: height - 250,
+                          _isLoading
+                              ? Expanded(
+                                child: Center(
+                                  child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      child: CircularProgressIndicator()),
+                                ),
                               )
-                            : Container(
-                                height: height - 250,
-                                child: ListView.builder(
-                                    itemCount: _news.length,
-                                    itemBuilder: (context, index) {
-                                      return ListTile(
-                                          horizontalTitleGap: 0,
-                                          minVerticalPadding: 8,
-                                          title: NewsCard(
-                                              content: _news[index].content,
-                                              author: _news[index].author,
-                                              imageUrl: _news[index].imageUrl));
-                                    }),
+                              : Expanded(
+                                child: Container(
+                                    child: ListView.builder(
+                                        itemCount: _news.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                              horizontalTitleGap: 0,
+                                              minVerticalPadding: 8,
+                                              title: NewsCard(
+                                                  content: _news[index].content,
+                                                  author: _news[index].author,
+                                                  imageUrl: _news[index].imageUrl));
+                                        }),
+                                  ),
                               ),
-                      ],
-                    ),
-                  )),
+                        ],
+                      ),
+                    )),
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: 'Science',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group_outlined),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.article_outlined),
-            label: 'Technology',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: backgroundYellow,
-        onTap: _onItemTapped,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: Colors.black, blurRadius: 3, offset: Offset(0.0, 0.75)),
+          ],
+        ),
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Science',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group_outlined),
+              label: 'Business',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.article_outlined),
+              label: 'Technology',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: backgroundYellow,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
