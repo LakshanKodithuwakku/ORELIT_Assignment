@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:orelit_assignment/constants/colors.dart';
 import 'package:orelit_assignment/models/news.dart';
 import 'package:orelit_assignment/models/science.api.dart';
+import 'package:orelit_assignment/widgets/bottom_navbar.dart';
 import 'package:orelit_assignment/widgets/news_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -157,24 +158,9 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black, blurRadius: 3, offset: Offset(0.0, 0.75)),
           ],
         ),
-        child: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: 'Science',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.supervisor_account_outlined),
-              label: 'Business',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt),
-              label: 'Technology',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: backgroundYellow,
-          onTap: _onItemTapped,
+        child: BotomNavBar(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
         ),
       ),
     );
