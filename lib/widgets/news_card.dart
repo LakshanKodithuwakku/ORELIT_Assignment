@@ -59,7 +59,7 @@ class NewsCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: width - 180,
+                    width: width - 135,
                     child: RichText(
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
