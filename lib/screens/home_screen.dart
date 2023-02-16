@@ -19,19 +19,57 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-          child: ListView.builder(
-              itemCount: 10, //europeanCountries.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                    title: NewsCard(
-                  content: "Content",
-                  author: 'Lakshan',
-                  imageUrl: 'https://wallpaperaccess.com/full/24469.jpg'
-                    ) //Text(europeanCountries[index]),
-                    );
-              })),
+        color: Colors.orange,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 100.0),
+          child: Column(
+            children: [
+              Text(
+                "NEWS",
+              ),
+              SizedBox(height: 20),
+              Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30.0),
+                      topLeft: Radius.circular(30.0),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Science"),
+                        Text("Here is your science news"),
+                        SizedBox(height: 20,),
+                        Container(
+                          height: height - 264,
+                          child: ListView.builder(
+                              itemCount: 10,
+                              itemBuilder: (context, index) {
+                                return ListTile(horizontalTitleGap: 0,
+                                    minVerticalPadding: 8,
+                                    title: NewsCard(
+                                        content: "Content",
+                                        author: 'Lakshan',
+                                        imageUrl:
+                                            'https://wallpaperaccess.com/full/24469.jpg')
+                                    );
+                              }),
+                        ),
+                      ],
+                    ),
+                  )),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
