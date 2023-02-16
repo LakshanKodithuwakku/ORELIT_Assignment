@@ -11,7 +11,6 @@ class ScienceNewsApi {
     Map<String, dynamic> responseJson = json.decode(response.toString());
     List _temp = responseJson["data"];
 
-    print(_temp.toString());
     return NewsModel.newsFromSnapshot(_temp);
   }
 }

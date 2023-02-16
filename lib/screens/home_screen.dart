@@ -24,10 +24,10 @@ class _HomePageState extends State<HomePage> {
         newsType = "science";
         break;
       case 1:
-        newsType = "technology";
+        newsType = "business";
         break;
       case 2:
-        newsType = "business";
+        newsType = "technology";
         break;
     }
     setState(() {
@@ -118,16 +118,17 @@ class _HomePageState extends State<HomePage> {
                           ),
                           _isLoading
                               ? Expanded(
-                                child: Center(
-                                  child: Container(
-                                      height: 30,
-                                      width: 30,
-                                      child: CircularProgressIndicator()),
-                                ),
-                              )
+                                  child: Center(
+                                    child: Container(
+                                        height: 30,
+                                        width: 30,
+                                        child: CircularProgressIndicator()),
+                                  ),
+                                )
                               : Expanded(
-                                child: Container(
+                                  child: Container(
                                     child: ListView.builder(
+                                        padding: EdgeInsets.zero,
                                         itemCount: _news.length,
                                         itemBuilder: (context, index) {
                                           return ListTile(
@@ -136,10 +137,11 @@ class _HomePageState extends State<HomePage> {
                                               title: NewsCard(
                                                   content: _news[index].content,
                                                   author: _news[index].author,
-                                                  imageUrl: _news[index].imageUrl));
+                                                  imageUrl:
+                                                      _news[index].imageUrl));
                                         }),
                                   ),
-                              ),
+                                ),
                         ],
                       ),
                     )),
