@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.orelit_assignment">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="orelit_assignment"
         android:name="${applicationName}"

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orelit_assignment/constants/colors.dart';
 
 class NewsCard extends StatelessWidget {
   final String content;
@@ -15,9 +16,9 @@ class NewsCard extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return Container(
       width: width,
-      height: 130,
+      height: 110,
       decoration: BoxDecoration(
-        border: Border.all(width: 1, color: Colors.orange),
+        border: Border.all(width: 1, color: backgroundYellow),
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
@@ -31,16 +32,16 @@ class NewsCard extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   Container(
-                    width: 70,
-                    height: 70,
+                    width: 65,
+                    height: 65,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.indigoAccent,
                     ),
                   ),
                   Container(
-                    height: 65,
-                    width: 65,
+                    height: 60,
+                    width: 60,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
@@ -63,7 +64,7 @@ class NewsCard extends StatelessWidget {
                       strutStyle: StrutStyle(fontSize: 12.0),
                       text: TextSpan(
                           style: TextStyle(color: Colors.black),
-                          text: 'want to limit the number of rows in the table, because I get about 40 rows from the API, and I need to make 5 rows. Tell me, what method should be applied'),
+                          text: content),
                     ),
                   ),
                   SizedBox(height: 10,),
@@ -74,8 +75,15 @@ class NewsCard extends StatelessWidget {
                         color: Colors.black,
                         size: 18,
                       ),
-                      SizedBox(width: 8,),
-                      Text("author - " + author),
+                      SizedBox(width: 5,),
+                      RichText(
+                        overflow: TextOverflow.ellipsis,maxLines: 2,
+                        strutStyle: StrutStyle(fontSize: 12.0),
+                        text: TextSpan(
+                            style: TextStyle(color: Colors.black),
+                            text: "author - " + author),
+                      ),
+                     // Text("author - " + author),
                     ],
                   )
                 ],

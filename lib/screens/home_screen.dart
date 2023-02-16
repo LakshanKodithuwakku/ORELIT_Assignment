@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:orelit_assignment/constants/colors.dart';
+import 'package:orelit_assignment/models/news.dart';
+import 'package:orelit_assignment/models/science.api.dart';
 import 'package:orelit_assignment/widgets/news_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,10 +13,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  late List<NewsModel> _news;
+  bool _isLoading = true;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNews();
+  }
+
+  Future<void> getNews() async {
+    print("Lakshan");
+    _news = await ScienceNewsApi.getScienceNews();
+    setState(() {
+      _isLoading = false;
     });
   }
 
@@ -23,13 +42,17 @@ class _HomePageState extends State<HomePage> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-        color: Colors.orange,
+        color: backgroundYellow,
         child: Padding(
-          padding: const EdgeInsets.only(top: 100.0),
+          padding: const EdgeInsets.only(top: 55.0),
           child: Column(
             children: [
               Text(
-                "NEWS",
+                "NEWS",style: TextStyle(
+                color: backgroundWhite,
+                fontSize: 16,
+                fontWeight: FontWeight.bold
+              ),
               ),
               SizedBox(height: 20),
               Container(
@@ -49,17 +72,17 @@ class _HomePageState extends State<HomePage> {
                         Text("Here is your science news"),
                         SizedBox(height: 20,),
                         Container(
-                          height: height - 264,
+                          height: height - 222,
                           child: ListView.builder(
-                              itemCount: 10,
+                              itemCount: _news.length,
                               itemBuilder: (context, index) {
                                 return ListTile(horizontalTitleGap: 0,
                                     minVerticalPadding: 8,
                                     title: NewsCard(
-                                        content: "Content",
-                                        author: 'Lakshan',
+                                        content: _news[index].content,
+                                        author: _news[index].author,
                                         imageUrl:
-                                            'https://wallpaperaccess.com/full/24469.jpg')
+                                        _news[index].imageUrl)
                                     );
                               }),
                         ),
@@ -86,7 +109,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: backgroundYellow,
         onTap: _onItemTapped,
       ),
     );
