@@ -18,7 +18,7 @@ class NewsCard extends StatelessWidget {
       width: width,
       height: 110,
       decoration: BoxDecoration(
-        border: Border.all(width: 1, color: backgroundYellow),
+        border: Border.all(width: 1, color: Colors.orange),
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
@@ -45,13 +45,14 @@ class NewsCard extends StatelessWidget {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: NetworkImage(imageUrl),
-                            fit: BoxFit.cover)),
+                            image: NetworkImage(imageUrl), fit: BoxFit.cover)),
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 10,),
+            SizedBox(
+              width: 10,
+            ),
             Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,14 +61,16 @@ class NewsCard extends StatelessWidget {
                   Container(
                     width: width - 180,
                     child: RichText(
-                      overflow: TextOverflow.ellipsis,maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       strutStyle: StrutStyle(fontSize: 12.0),
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black),
-                          text: content),
+                          style: TextStyle(color: Colors.black), text: content),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     children: [
                       Icon(
@@ -75,15 +78,22 @@ class NewsCard extends StatelessWidget {
                         color: Colors.black,
                         size: 18,
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       RichText(
-                        overflow: TextOverflow.ellipsis,maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                         strutStyle: StrutStyle(fontSize: 12.0),
                         text: TextSpan(
-                            style: TextStyle(color: Colors.black),
-                            text: "author - " + author),
+                          style: TextStyle(
+                              color: textGray,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold),
+                          text: "author - " + author,
+                        ),
                       ),
-                     // Text("author - " + author),
+                      // Text("author - " + author),
                     ],
                   )
                 ],

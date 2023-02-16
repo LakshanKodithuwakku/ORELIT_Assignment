@@ -15,8 +15,21 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   late List<NewsModel> _news;
   bool _isLoading = true;
+  String newsType = "science";
 
   void _onItemTapped(int index) {
+    switch (index) {
+      case 0:
+        newsType = "science";
+        break;
+      case 1:
+        newsType = "technology";
+        break;
+      case 2:
+        newsType = "business";
+        break;
+    }
+    getNews(newsType);
     setState(() {
       _selectedIndex = index;
     });
@@ -25,12 +38,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getNews();
+    getNews(newsType);
   }
 
-  Future<void> getNews() async {
-    print("Lakshan");
-    _news = await ScienceNewsApi.getScienceNews();
+  Future<void> getNews(String newsType) async {
+    _news = await ScienceNewsApi.getScienceNews(newsType);
     setState(() {
       _isLoading = false;
     });
@@ -48,11 +60,13 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Text(
-                "NEWS",style: TextStyle(
-                color: backgroundWhite,
-                fontSize: 16,
-                fontWeight: FontWeight.bold
-              ),
+                "NEWS",
+                style: TextStyle(
+                  color: backgroundWhite,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                ),
               ),
               SizedBox(height: 20),
               Container(
@@ -64,28 +78,61 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+                    padding: const EdgeInsets.only(top: 35),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Science"),
-                        Text("Here is your science news"),
-                        SizedBox(height: 20,),
-                        Container(
-                          height: height - 222,
-                          child: ListView.builder(
-                              itemCount: _news.length,
-                              itemBuilder: (context, index) {
-                                return ListTile(horizontalTitleGap: 0,
-                                    minVerticalPadding: 8,
-                                    title: NewsCard(
-                                        content: _news[index].content,
-                                        author: _news[index].author,
-                                        imageUrl:
-                                        _news[index].imageUrl)
-                                    );
-                              }),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 15,
+                            right: 15,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                newsType[0].toUpperCase() +
+                                    newsType.substring(1).toLowerCase(),
+                                style: TextStyle(
+                                  color: textBlack,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "Here is your " + newsType + " news",
+                                style: TextStyle(
+                                    color: textGray,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                            ],
+                          ),
                         ),
+                        _isLoading
+                            ? Container(
+                                height: height - 250,
+                              )
+                            : Container(
+                                height: height - 250,
+                                child: ListView.builder(
+                                    itemCount: _news.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                          horizontalTitleGap: 0,
+                                          minVerticalPadding: 8,
+                                          title: NewsCard(
+                                              content: _news[index].content,
+                                              author: _news[index].author,
+                                              imageUrl: _news[index].imageUrl));
+                                    }),
+                              ),
                       ],
                     ),
                   )),

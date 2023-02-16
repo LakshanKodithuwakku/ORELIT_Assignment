@@ -3,7 +3,8 @@ class NewsModel {
   final String author;
   final String imageUrl;
 
-  NewsModel({required this.content, required this.author, required this.imageUrl});
+  NewsModel(
+      {required this.content, required this.author, required this.imageUrl});
 
   factory NewsModel.fromJson(dynamic json) {
     return NewsModel(
@@ -19,7 +20,7 @@ class NewsModel {
   }
 
   @override
-  String toString(){
+  String toString() {
     return 'Recipe {name: $content, image: $author, totalTime: $imageUrl}';
   }
 }
