@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orelit_assignment/constants/colors.dart';
 import 'package:orelit_assignment/models/news.dart';
-import 'package:orelit_assignment/models/science.api.dart';
+import 'package:orelit_assignment/models/news.api.dart';
 import 'package:orelit_assignment/widgets/bottom_navbar.dart';
 import 'package:orelit_assignment/widgets/news_card.dart';
 
@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
     await getNews(newsType);
-    _isLoading = false;
   }
 
   @override
@@ -45,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> getNews(String newsType) async {
-    _news = await ScienceNewsApi.getScienceNews(newsType);
+    _news = await NewsApi.getNews(newsType);
     setState(() {
       _isLoading = false;
     });

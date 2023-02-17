@@ -80,19 +80,13 @@ class NewsCard extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      RichText(
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        strutStyle: StrutStyle(fontSize: 12.0),
-                        text: TextSpan(
-                          style: TextStyle(
-                              color: textGray,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold),
-                          text: "author - " + author,
-                        ),
+                      Text(
+                        "author - " + author,
+                        style: TextStyle(
+                            color: textGray,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
                       ),
-                      // Text("author - " + author),
                     ],
                   )
                 ],

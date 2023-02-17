@@ -21,6 +21,6 @@ class NewsModel {
 
   @override
   String toString() {
-    return 'Recipe {name: $content, image: $author, totalTime: $imageUrl}';
+    return 'News {content: $content, author: $author, imageUrl: $imageUrl}';
   }
 }
